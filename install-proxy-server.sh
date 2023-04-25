@@ -11,7 +11,7 @@ chmod +x /usr/local/bin/docker-compose
 
 
 
-sudo yum install unzip - y
+sudo yum install -y unzip
 curl -L "https://github.com/vntechbuilding/github-data/raw/master/proxy-v4-v6-vultr.zip" -o /root/proxy-v4-v6-vultr.zip
 unzip -P ${UnzipPass} /root/proxy-v4-v6-vultr.zip -d /root/proxy-v4-v6-vultr
 cd /root/proxy-v4-v6-vultr
@@ -22,8 +22,11 @@ source ~/.bash_profile
 nvm i v18
 npm install --global pm2 yarn
 yarn install
+yarn prisma migrate dev
+yarn prisma generate
 cd build
 pm2 start main.es.js
+cd cronjob
 pm2 start cron-update-vultr-account.es.js
 pm2 start cron-setup-vultr-vps.es.js
 pm2 start cron-setup-p.es.js
@@ -33,3 +36,5 @@ pm2 start cron-ini-vultr-plan.es.js
 pm2 start cron-ini-vultr-os.es.js
 pm2 save
 pm2 startup
+firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --reload
