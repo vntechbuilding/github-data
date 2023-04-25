@@ -38,3 +38,4 @@ pm2 save
 pm2 startup
 firewall-cmd --zone=public --permanent --add-service=http
 firewall-cmd --reload
+echo "Cai dat hoan tat"
