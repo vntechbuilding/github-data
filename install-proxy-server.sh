@@ -26,6 +26,8 @@ yarn prisma migrate dev
 yarn prisma generate
 cd build
 pm2 start main.es.js
+sleep 20
+pm2 restart main.es.js
 cd cronjob
 pm2 start cron-update-vultr-account.es.js
 pm2 start cron-setup-vultr-vps.es.js
